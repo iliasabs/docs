@@ -1,0 +1,73 @@
+# Troubleshooting Guide
+
+This guide covers common issues, their causes, and step-by-step resolutions.
+
+## 1. Build Failures
+
+### Symptom
+The build fails with missing module or dependency errors.
+
+### Resolution
+1. Clear the dependency cache and reinstall:
+   ```bash
+   rm -rf node_modules && npm ci
+   ```
+2. Verify your Node.js version matches the version pinned in `.nvmrc`.
+3. Re-run the build with verbose logging:
+   ```bash
+   npm run build -- --verbose
+   ```
+
+## 2. Authentication Errors
+
+### Symptom
+API requests return `401 Unauthorized` or `403 Forbidden`.
+
+### Resolution
+1. Confirm your access token is valid and not expired.
+2. Verify the token has the required scopes for the endpoint you are calling.
+3. Check that environment variables are loaded correctly:
+   ```bash
+   echo $API_TOKEN
+   ```
+
+## 3. Slow Page Loads
+
+### Symptom
+Documentation pages take longer than 3 seconds to load.
+
+### Resolution
+1. Check the CDN cache status headers for the page.
+2. Purge the CDN cache if stale content is being served.
+3. Profile the page with browser dev tools to identify slow assets.
+
+## 4. Search Returns No Results
+
+### Symptom
+The documentation search returns empty results for known content.
+
+### Resolution
+1. Verify the search index has been rebuilt after recent content changes.
+2. Trigger a manual reindex if the index is stale.
+3. Confirm the search query syntax matches the supported operators.
+
+## 5. Broken Links
+
+### Symptom
+Internal links return `404 Not Found`.
+
+### Resolution
+1. Run the link checker locally:
+   ```bash
+   npm run check-links
+   ```
+2. Fix any reported broken paths or redirects.
+3. Ensure renamed pages include redirects from their old URLs.
+
+## Escalation
+
+If the issue persists after following the steps above:
+
+1. Collect relevant logs and error messages.
+2. Open an issue with the reproduction steps and environment details.
+3. Tag the issue with `triage` for prioritization.
