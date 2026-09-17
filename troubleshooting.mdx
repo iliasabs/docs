@@ -1,0 +1,77 @@
+---
+title: 'Troubleshooting'
+description: 'Fix common issues with local previews, builds, and deployments'
+icon: 'life-ring'
+---
+
+## Local preview
+
+<AccordionGroup>
+<Accordion title="The mint dev command is not found">
+
+The Mintlify CLI is not installed globally, or the npm global binary directory is not on your `PATH`.
+
+```bash
+npm i -g mint
+mint --version
+```
+
+</Accordion>
+
+<Accordion title="A page loads as a 404">
+
+Run `mint dev` from the directory that contains `docs.json`, and confirm the page path is listed in the `navigation` field of `docs.json`. Paths are relative to the root of the repository and omit the `.mdx` extension.
+
+</Accordion>
+
+<Accordion title="The preview does not reflect recent edits">
+
+Stop the dev server, update the CLI, and start it again.
+
+```bash
+mint update
+mint dev
+```
+
+</Accordion>
+</AccordionGroup>
+
+## Builds
+
+<AccordionGroup>
+<Accordion title="The build fails with an MDX syntax error">
+
+MDX treats `<` and `{` as the start of a component or expression. Escape them or wrap the content in a code block.
+
+```mdx
+Use `<Card>` to render a card, and \{ to render a literal brace.
+```
+
+</Accordion>
+
+<Accordion title="A component renders as plain text">
+
+Component names are case-sensitive and must be self-closing or explicitly closed, for example `<Note>…</Note>`. Check the [components reference](https://mintlify.com/docs/components) for the exact name.
+
+</Accordion>
+</AccordionGroup>
+
+## Deployments
+
+<AccordionGroup>
+<Accordion title="Changes are not live after pushing">
+
+Deployments run on pushes to the default branch. Confirm the branch, then check that the [Mintlify GitHub app](https://dashboard.mintlify.com/settings/organization/github-app) is installed and has access to this repository.
+
+</Accordion>
+
+<Accordion title="Images are missing in production">
+
+Reference images with an absolute path from the repository root, such as `/images/hero-light.png`, and commit the image files. Relative paths resolve differently in production than in local previews.
+
+</Accordion>
+</AccordionGroup>
+
+<Note>
+  Still stuck? Reach out through the [Mintlify community](https://mintlify.com/community) or email [support](mailto:hi@mintlify.com).
+</Note>
